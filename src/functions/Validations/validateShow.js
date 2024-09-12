@@ -1,4 +1,5 @@
-export function validateQuantity(showForm, movie, shows) {
+//this should also go as a constant?
+const validateQuantity = (showForm, movie, shows) => {
     const cantShows = shows.filter(show => {
         const showDate = new Date(show.date)
         const formDate = new Date(showForm.date)
@@ -23,3 +24,4 @@ export function validateQuantity(showForm, movie, shows) {
     }
     return true
 }
+export default validateQuantity
