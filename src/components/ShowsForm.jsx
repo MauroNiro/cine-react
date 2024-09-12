@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Modal, Button, Form, Alert } from 'react-bootstrap';
 import validateQuantity from '../functions/Validations/validateShow';
+import Shows from './Shows'
 
 const ShowsForm = ({ show, handleClose, handleAdd, handleEdit, handleDelete, shows, movie }) => {
     //initializes states and make variables more accesible
@@ -8,7 +9,6 @@ const ShowsForm = ({ show, handleClose, handleAdd, handleEdit, handleDelete, sho
     const [form, setForm] = useState(false)
     const [formError, setFormError] = useState(false)
     const [quantityError, setQuantityError] = useState(false)
-    const [showsMovies, setShowsMovies] = useState(<p>No hay funciones programadas</p>)
     const [showSpec, setShowSpec] = useState({
         date: new Date(),
         price: 0,
@@ -102,44 +102,18 @@ const ShowsForm = ({ show, handleClose, handleAdd, handleEdit, handleDelete, sho
         setFormError(true)
         return false
     }
-
-    //I dont know if this is correct
-    useEffect(() => {
-        const showMovie = shows.filter(show => show.movieId === movie.movieId)
-        if (showMovie.length > 0) {
-            setShowsMovies(showMovie.map(show => {
-                const showDate = new Date(show.date)
-                const showMinute = showDate.getMinutes() < 10 ? "0" + showDate.getMinutes() : showDate.getMinutes()
-                const fecha = `Fecha: ${showDate.getDate()}/${showDate.getMonth() + 1}/${showDate.getFullYear()} ${showDate.getHours()}:${showMinute}`
-                return (
-                    <div className="mt-1 rounded border border-secondary" key={show.showId}>
-                        <p className='ms-1'>{fecha}</p>
-                        <p className='ms-1'>Director:{show.directorName}</p>
-                        <p className='ms-1'>Duracion: {show.length}</p>
-                        <p className='ms-1'>Precio: {show.price}</p>
-                        {
-                            !form &&
-                            <>
-                                <Button className="ms-1 mb-3 me-2" onClick={() => { toggleForm(); getShowSpec(show.showId) }}>Editar</Button>
-                                <Button variant='secondary' className="mb-3" onClick={() => handleDelete(show.showId)}>Borrar</Button>
-                            </>
-                        }
-                    </div>
-                )
-            }))
-        }
-        else {
-            setShowsMovies(<p>No hay funciones programadas</p>)
-        }
-    }, [shows, movie, handleDelete, form])
-
     return (
         <Modal show={show} onHide={() => { toggleForm(); handleClose() }}>
             <Modal.Header closeButton>
                 <Modal.Title>Funciones de {movie.movieName}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                {showsMovies}
+                <Shows shows={shows}
+                    movie={movie}
+                    form={form}
+                    toggleForm={toggleForm}
+                    getShowSpec={getShowSpec}
+                    handleDelete={handleDelete} ></Shows>
                 <Button className='mt-2' onClick={() => { toggleForm(); resetShowSpec() }}>{!form ? "Agregar" : "Cerrar formulario"}</Button>
             </Modal.Body>
             {form &&

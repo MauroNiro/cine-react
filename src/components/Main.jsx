@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import ShowsForm from './ShowsForm';
 
-export default function Main({ handleAdd, handleEdit, handleDelete, movie, shows }) {
+const Main = ({ handleAdd, handleEdit, handleDelete, movie, shows }) => {
     //initialize State or make them more accessible
     const [toggleShows, setToggleShows] = useState(false)
     //open the shows for the selected movie
@@ -23,3 +23,4 @@ export default function Main({ handleAdd, handleEdit, handleDelete, movie, shows
         </Card >
     )
 }
+export default Main

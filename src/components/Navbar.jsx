@@ -1,9 +1,7 @@
 import React from 'react';
 import { Navbar } from 'react-bootstrap';
 
-function MyNavbar(props) {
-
-
+const MyNavbar = () => {
     return (
         <Navbar bg="light" expand="lg">
             <Navbar.Brand>Cine Demo</Navbar.Brand>
