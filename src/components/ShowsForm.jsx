@@ -103,7 +103,7 @@ const ShowsForm = ({ show, handleClose, handleAdd, handleEdit, handleDelete, sho
         return false
     }
     return (
-        <Modal show={show} onHide={() => { toggleForm(); handleClose() }}>
+        <Modal show={show} onHide={() => { setForm(false); handleClose() }}>
             <Modal.Header closeButton>
                 <Modal.Title>Funciones de {movie.movieName}</Modal.Title>
             </Modal.Header>
